@@ -3,6 +3,7 @@
 
 from .crawler import run
 from .crawler import get_populartimes
+from .crawler import get_populartimes_from_search
 
 import logging
 logging.getLogger(__name__).addHandler(logging.NullHandler())
@@ -54,3 +55,15 @@ def get_id(api_key, place_id):
     :return: see readme
     """
     return get_populartimes(api_key, place_id)
+
+def get_popular_times_by_crawl(name, address):
+    """
+    the raw crawler implementation which
+    retrieves the current popularity for a given place
+    from the Google Maps page
+    the parameters are concatenated in order to perform the search
+    :param name:
+    :param address:
+    :return: a tuple in the form of (rating, rating_n, popular_times, current_popularity, time_spent)
+    """
+    return get_populartimes_from_search(name, address)    
