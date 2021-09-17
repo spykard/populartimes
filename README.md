@@ -3,9 +3,13 @@
 The goal of this library is to provide an option to use *Google Maps* popular times data, until it is available via Google's API. 
 For legal concerns please read [Issue #90](../../issues/90). 
 
-Keep in mind that this API uses the Google Places Web Service, where each API call over a monthly budget is priced. The API call is SKU'd as "Find Current Place" with additional Data SKUs (Basic Data, Contact Data, Atmosphere Data).  As of February 2018, you can make 5000 calls with the alloted monthly budget.  For more information check https://developers.google.com/places/web-service/usage-and-billing and https://cloud.google.com/maps-platform/pricing/sheet/#places.  
+Keep in mind that this API uses the Google Places Web Service, where each API call over a monthly budget is priced. 
+As of February 2018, you can make 5000 calls with the allotted monthly budget. 
+For more information check https://developers.google.com/places/web-service/usage-and-billing and https://cloud.google.com/maps-platform/pricing/sheet/#places.  
 
-As Google Maps is constantly updated this library can  be unstable.
+**Warning: ```populartimes.get()``` can be incredibly costly as of September 2021.**
+
+As Google Maps is constantly updated this library can be unstable.
 
 ## How to get started
 + Get a Google Maps API key https://developers.google.com/places/web-service/get-api-key 
@@ -145,7 +149,14 @@ Retrieves information for a given place id and adds populartimes, wait, time_spe
 ```
 
 
-## populartimes.get(...)
+## populartimes.get(...) - TO BE REMOVED
+
+Warning: Will be removed, as this uses the **Google Places Nearby Search** endpoint which is expensive 
+(refer to https://developers.google.com/places/web-service/search#PlaceSearchRequests) and the places API does not support covering a specified area itself.
+
+Warning: Please implement your own covering algorithm to get all place IDs that you're interested in and call ````get_id()````.
+If you want to used the ````get()```` call please checkout a previous version and use it at your own caution 
+(be aware that there have been cases where this lead to a high amount of API requests, which were billed by Google Maps).
 
 Retrieves information for a given area according to place types and bounds. Adds populartimes, wait, time_spent and other data not accessible via Google Places.
 
