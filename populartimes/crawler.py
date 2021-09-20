@@ -331,6 +331,36 @@ def add_optional_parameters(detail_json, detail, rating, rating_n, popularity, c
     return detail_json
 
 
+def get_populartimes_from_search_format_output(rating, rating_n, popularity, current_popularity, time_spent):
+    """
+    identical to the above 'add_optional_parameters()' function, but
+    specific to 'get_populartimes_from_search()' type of search
+    """
+
+    detail_json = {}
+    if rating:
+        detail_json["rating"] = rating
+
+    if rating_n:
+        detail_json["rating_n"] = rating_n
+
+    if current_popularity:
+        detail_json["current_popularity"] = current_popularity
+
+    if popularity:
+        popularity, wait_times = get_popularity_for_day(popularity)
+
+        detail_json["populartimes"] = popularity
+
+        if wait_times:
+            detail_json["time_wait"] = wait_times
+
+    if time_spent:
+        detail_json["time_spent"] = time_spent
+
+    return detail_json
+
+
 def get_populartimes_from_search(name, address):
     """
     request information for a place and parse current popularity

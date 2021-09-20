@@ -4,6 +4,7 @@
 from .crawler import run
 from .crawler import get_populartimes
 from .crawler import get_populartimes_from_search
+from .crawler import get_populartimes_from_search_format_output
 
 import logging
 logging.getLogger(__name__).addHandler(logging.NullHandler())
@@ -66,4 +67,4 @@ def get_popular_times_by_crawl(name, address):
     :param address:
     :return: a tuple in the form of (rating, rating_n, popular_times, current_popularity, time_spent)
     """
-    return get_populartimes_from_search(name, address)    
+    return get_populartimes_from_search_format_output(*get_populartimes_from_search(name, address))

@@ -50,10 +50,17 @@ elif (mode == 3):
     search_name = config['Settings']['search_name']
     search_address = config['Settings']['search_address']
 
-    data = populartimes.get_popular_times_by_crawl(name=search_name, address=search_address)
+    place = populartimes.get_popular_times_by_crawl(name=search_name, address=search_address)
 
     print(search_name + " " + search_address)
-    print("rating: " + str(data[0]) + " (" + str(data[1]) + ")")
-    print("popular_times: " + str(data[2]))
-    print("current_popularity: " + str(data[3]))
-    print("time_spent: " + str(data[4]))
+    print(str(place['rating']) + " (" + str(place['rating_n']) + ")")
+    if "current_popularity" in place:
+        print(place['current_popularity'])
+    else:
+        print("N/A")
+    print(place['populartimes'])
+    if "time_spent" in place:
+        print(place['time_spent'])
+    else:
+        print("N/A")
+    print()
