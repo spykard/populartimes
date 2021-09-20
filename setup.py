@@ -16,7 +16,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='populartimes',
-    version='2.1',
+    version='2.2',
     description='Populartimes Google Maps',
     long_description=long_description,
     url='https://github.com/spykard/populartimes',
