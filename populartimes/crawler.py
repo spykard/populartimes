@@ -340,12 +340,18 @@ def get_populartimes_from_search_format_output(rating, rating_n, popularity, cur
     detail_json = {}
     if rating:
         detail_json["rating"] = rating
+    else:
+        detail_json["rating"] = None
 
     if rating_n:
         detail_json["rating_n"] = rating_n
+    else:
+        detail_json["rating_n"] = None
 
     if current_popularity:
         detail_json["current_popularity"] = current_popularity
+    else:
+        detail_json["current_popularity"] = None
 
     if popularity:
         popularity, wait_times = get_popularity_for_day(popularity)
@@ -354,9 +360,15 @@ def get_populartimes_from_search_format_output(rating, rating_n, popularity, cur
 
         if wait_times:
             detail_json["time_wait"] = wait_times
+        else:
+            detail_json["time_wait"] = None    
+    else:
+        detail_json["populartimes"] = None
 
     if time_spent:
         detail_json["time_spent"] = time_spent
+    else:
+        detail_json["time_spent"] = None
 
     return detail_json
 
