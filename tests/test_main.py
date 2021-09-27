@@ -27,6 +27,7 @@ elif (mode == 2):
 
     data = populartimes.get(api_key=api_key, types=types, p1=p1, p2=p2, n_threads=20, radius=radius, all_places=all_places)
 
+    print(data)
     print(len(data))
     for place in data:
         print(place['name'])
@@ -52,15 +53,14 @@ elif (mode == 3):
 
     place = populartimes.get_popular_times_by_crawl(name=search_name, address=search_address)
 
-    print(search_name + " " + search_address)
+    print("query: " + search_name + " " + search_address)
+    print(place["place_name"])
+    print(place["place_address"])
+    print(place["latitude"])
+    print(place["longtitude"])
+    print(place["types"])
+    print(place["place_id"])
     print(str(place['rating']) + " (" + str(place['rating_n']) + ")")
-    if "current_popularity" in place:
-        print(place['current_popularity'])
-    else:
-        print("N/A")
+    print(place['current_popularity'])
     print(place['populartimes'])
-    if "time_spent" in place:
-        print(place['time_spent'])
-    else:
-        print("N/A")
-    print()
+    print(place['time_spent'])

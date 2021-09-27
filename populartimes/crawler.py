@@ -331,13 +331,21 @@ def add_optional_parameters(detail_json, detail, rating, rating_n, popularity, c
     return detail_json
 
 
-def get_populartimes_from_search_format_output(rating, rating_n, popularity, current_popularity, time_spent):
+def get_populartimes_from_search_format_output(place_address, latitude, longtitude, place_name, types, place_id, rating, rating_n, popularity, current_popularity, time_spent):
     """
     identical to the above 'add_optional_parameters()' function, but
     specific to 'get_populartimes_from_search()' type of search
     """
 
     detail_json = {}
+
+    detail_json["place_address"] = place_address
+    detail_json["latitude"] = latitude
+    detail_json["longtitude"] = longtitude
+    detail_json["place_name"] = place_name    
+    detail_json["types"] = types
+    detail_json["place_id"] = place_id
+
     if rating:
         detail_json["rating"] = rating
     else:
@@ -413,10 +421,29 @@ def get_populartimes_from_search(name, address):
     jdata = json.loads(data)["d"]
     jdata = json.loads(jdata[4:])
 
-    # check if proper and numeric address, i.e. multiple components and street number
-    is_proper_address = any(char.isspace() for char in address.strip()) and any(char.isdigit() for char in address)
+    # this is an alternative scenario in case only place 'name' was given, where a different index is selected, however it does not seem to work at all: 
+    # - check if proper and numeric address, i.e. multiple components and street number
+    # is_proper_address = any(char.isspace() for char in address.strip()) and any(char.isdigit() for char in address)
+    # info = index_get(jdata, 0, 1, 0 if is_proper_address else 1, 14)
 
-    info = index_get(jdata, 0, 1, 0 if is_proper_address else 1, 14)
+    info = index_get(jdata, 0, 1, 0, 14)
+    
+    # debug
+    # for i in range (0, 17):
+    #     print(index_get(info, i))       
+    #     print()
+
+    address_t = index_get(info, 2)
+    place_address = ', '.join(address_t) if isinstance(address_t, list) else address_t
+
+    latitude = index_get(info, 9, 2)
+    longtitude = index_get(info, 9, 3)
+
+    place_name = index_get(info, 11)
+
+    types = index_get(info, 76)
+
+    place_id = index_get(info, 78)
 
     rating = index_get(info, 4, 7)
     rating_n = index_get(info, 4, 8)
@@ -445,7 +472,7 @@ def get_populartimes_from_search(name, address):
 
         time_spent = [int(t) for t in time_spent]
 
-    return rating, rating_n, popular_times, current_popularity, time_spent
+    return place_address, latitude, longtitude, place_name, types, place_id, rating, rating_n, popular_times, current_popularity, time_spent
 
 
 def get_detail(place_id):

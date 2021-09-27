@@ -65,6 +65,6 @@ def get_popular_times_by_crawl(name, address):
     the parameters are concatenated in order to perform the search
     :param name:
     :param address:
-    :return: a tuple in the form of (rating, rating_n, popular_times, current_popularity, time_spent) which is then formatted into a dict
+    :return: a tuple in the form of (place_address, latitude, longtitude, place_name, types, place_id, rating, rating_n, popular_times, current_popularity, time_spent) which is then formatted into a dict
     """
     return get_populartimes_from_search_format_output(* get_populartimes_from_search(name, address))
